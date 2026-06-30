@@ -29,7 +29,7 @@ function ProductCard({
       </p>
 
       <p>
-        {price > 50000
+        {price > 100
           ? " Premium Product"
           : " Budget Product"}
       </p>
