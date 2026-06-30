@@ -1,0 +1,27 @@
+.search {
+  text-align: center;
+  margin: 40px 0;
+}
+
+.search h2 {
+  margin-bottom: 20px;
+  font-size: 32px;
+}
+
+.search input {
+  width: 450px;
+  padding: 12px;
+  font-size: 16px;
+  border: 2px solid #2563eb;
+  border-radius: 30px;
+  outline: none;
+}
+
+.search input:focus {
+  border-color: #1d4ed8;
+  box-shadow: 0 0 8px rgba(37, 99, 235, 0.3);
+}
+
+.search p {
+  margin-top: 12px;
+}
