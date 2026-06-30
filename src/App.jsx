@@ -52,8 +52,7 @@ function App() {
         inStock={Math.random() > 0.5}
         />
         ))}
-      </div>
-    )}
+      </div>)}
       <Hero
         name="Anshu Verma"
         role="Frontend Developer"
