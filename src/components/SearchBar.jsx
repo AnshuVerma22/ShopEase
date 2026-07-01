@@ -1,8 +1,8 @@
 import "../styles/SearchBar.css";
-import { useState } from "react";
+// import { useState } from "react";
 
-function SearchBar() {
-  const [search, setSearch] = useState("");
+function SearchBar({ searchTerm, setSearchTerm }) {
+  // const [search, setSearch] = useState("");
 
   return (
     <section className="search">
@@ -11,17 +11,21 @@ function SearchBar() {
       <input
       type="text"
       placeholder="Search your favourite product..."
-      value={search}
-      onChange={(event) => setSearch(event.target.value)}
+      value={searchTerm}
+      onChange={(event) => setSearchTerm(event.target.value)}
       />
-
-      <p>You typed: {search}</p>
-      <p>Uppercase: {search.toUpperCase()}</p>
-      <p>Characters: {search.length}</p>
+      {searchTerm && (
+  <button onClick={() => setSearchTerm("")}>
+    Clear
+  </button>
+)}
+      <p>You typed: {searchTerm}</p>
+      <p>Uppercase: {searchTerm.toUpperCase()}</p>
+      <p>Characters: {searchTerm.length}</p>
       <p>
-        {search === ""
+        {searchTerm === ""
           ? "Please enter a product name."
-          : `Searching for: ${search}`}
+          : `Searching for: ${searchTerm}`}
       </p>
     </section>
   );

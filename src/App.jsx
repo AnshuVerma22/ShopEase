@@ -13,6 +13,7 @@ function App() {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [cartCount, setCartCount] = useState(0);
+  const [searchTerm, setSearchTerm] = useState("");
   
   const addToCart = () => {
     setCartCount((prevCount) => prevCount + 1);
@@ -28,7 +29,7 @@ function App() {
   useEffect(() => {
     console.log("Welcome to ShopEase!");
 
-    setMessage("Day 8 Started 🚀");
+    setMessage("Day 10 Started 🚀");
 
     fetch("https://fakestoreapi.com/products")
       .then((response) => response.json())
@@ -42,35 +43,45 @@ function App() {
   setLoading(false);
 });
   }, []);
-
+  const filteredProducts = products.filter((product) =>
+  product.title.toLowerCase().includes(searchTerm.toLowerCase())
+);
   return (
     <div className="app">
       <Navbar />
 
       <h2>{message}</h2>
 
-      <SearchBar />
+      <SearchBar
+      searchTerm={searchTerm}
+      setSearchTerm={setSearchTerm}
+      />
 
       <h1 className="page-title">Featured Products</h1>
    
       {loading ? (
-        <h2>Loading Products...</h2>
-      ) : (
-      <div className="products-container">
-       {products.slice(0, 10).map((product) => (
-        <ProductCard
+  <h2>Loading Products...</h2>
+) : filteredProducts.length === 0 ? (
+  <div className="no-products">
+  <h2>No products found 😔</h2>
+  <p>Try another search.</p>
+</div>
+) : (
+  <div className="products-container">
+    {filteredProducts.slice(0, 10).map((product) => (
+      <ProductCard
         key={product.id}
         name={product.title}
         image={product.image}
         price={product.price}
         category={product.category}
         rating={product.rating.rate}
-        inStock={product.inStock}        
+        inStock={product.inStock}
         addToCart={addToCart}
-        removeFromCart={removeFromCart}
-        />
-        ))}
-      </div>)}
+      />
+    ))}
+  </div>
+)}
       <Hero
         name="Anshu Verma"
         role="Frontend Developer"
