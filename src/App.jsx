@@ -12,7 +12,19 @@ function App() {
   const [message, setMessage] = useState("Loading...");
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [cartCount, setCartCount] = useState(0);
+  
+  const addToCart = () => {
+    setCartCount((prevCount) => prevCount + 1);
+  };
 
+  const removeFromCart = () => {
+    setCartCount((prevCount) => Math.max(0, prevCount - 1));
+  };
+
+  const emptyCart = () => {
+    setCartCount(0);
+  };
   useEffect(() => {
     console.log("Welcome to ShopEase!");
 
@@ -21,10 +33,14 @@ function App() {
     fetch("https://fakestoreapi.com/products")
       .then((response) => response.json())
       .then((data) => {
-        console.log(data);
-        setProducts(data);
-        setLoading(false);
-      });
+        const updatedProducts = data.map((product) => ({
+          ...product,
+          inStock: Math.random() > 0.5,
+        }));
+
+  setProducts(updatedProducts);
+  setLoading(false);
+});
   }, []);
 
   return (
@@ -49,7 +65,9 @@ function App() {
         price={product.price}
         category={product.category}
         rating={product.rating.rate}
-        inStock={Math.random() > 0.5}
+        inStock={product.inStock}        
+        addToCart={addToCart}
+        removeFromCart={removeFromCart}
         />
         ))}
       </div>)}
@@ -69,7 +87,11 @@ function App() {
         company="HCL Tech"
       />
 
-      <Cart />
+      <Cart
+  cartCount={cartCount}
+  removeFromCart={removeFromCart}
+  emptyCart={emptyCart}
+/>
       <Footer />
     </div>
   );

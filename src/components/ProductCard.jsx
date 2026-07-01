@@ -6,6 +6,7 @@ function ProductCard({
   category,
   rating,
   inStock,
+  addToCart,  
 }) {
   return (
     <div className="product-card">
@@ -34,9 +35,16 @@ function ProductCard({
           : " Budget Product"}
       </p>
 
-      <button disabled={!inStock}>
-        {inStock ? "Add to Cart" : "Out of Stock"}
-      </button>
+      {inStock ? (
+  <button onClick={addToCart}>
+    Add to Cart
+  </button>
+) : (
+  <button disabled>
+    Out of Stock
+  </button>
+)}
+
     </div>
   );
 }
